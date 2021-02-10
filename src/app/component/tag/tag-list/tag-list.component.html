@@ -1,0 +1,23 @@
+<div class="container m-5">
+    <h1>Categorieën</h1>
+    <a routerLink="/tag-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Categorie toevoegen</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 10%">Id</th>
+                <th style="width: 70%">Naam</th>
+                <th style="width: 5%"></th>
+                <th style="width: 5%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tag of tags">
+                <td>{{tag.id}}</td>
+                <td>{{tag.name}}</td>
+                <td><a routerLink="/tag-update/{{tag.id}}"><img src="assets/icons/pencil-square.svg" alt="Update tag"></a></td>
+                <td><a (click)="deleteTag(tag.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

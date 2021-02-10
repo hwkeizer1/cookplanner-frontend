@@ -1,0 +1,21 @@
+<div class="container m-5">
+    <h1>Categorie wijzigen</h1>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Categorie naam</label>
+                <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Categorie naam moet worden ingevuld</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Opslaan
+            </button>
+            <a routerLink="/tags" class="btn btn-link">Annuleren</a>
+        </div>
+    </form>
+</div>
