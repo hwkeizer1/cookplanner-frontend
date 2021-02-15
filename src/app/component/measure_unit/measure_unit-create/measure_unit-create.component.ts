@@ -3,15 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators'
 
-import { TagService } from 'src/app/service/tag/tag.service';
 import { AlertService } from 'src/app/service/alert/alert.service';
+import { MeasureUnitService } from 'src/app/service/measure_unit/measure_unit.service';
 
 @Component({
-  selector: 'app-tag-create',
-  templateUrl: './tag-create.component.html',
-  styleUrls: ['./tag-create.component.css']
+  selector: 'app-measure_unit-create',
+  templateUrl: './measure_unit-create.component.html',
+  styleUrls: ['./measure_unit-create.component.css']
 })
-export class TagCreateComponent implements OnInit {
+export class MeasureUnitCreateComponent implements OnInit {
   createForm!: FormGroup;
   loading = false;
   submitted = false;
@@ -19,12 +19,14 @@ export class TagCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private tagService: TagService,
-    private alertService: AlertService) { }
+    private measureUnitService: MeasureUnitService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      pluralName: ['', Validators.required]
     })
   }
 
@@ -39,15 +41,15 @@ export class TagCreateComponent implements OnInit {
     }
 
     this.loading = true;
-    this.tagService.create(this.createForm.value)
+    this.measureUnitService.create(this.createForm.value)
       .pipe(first())
       .subscribe(data => {
-        this.alertService.success(`Categorie ${data.name} toegevoegd`, { keepAfterRouteChange: true })
-        this.router.navigate(['/tags']);
+        this.alertService.success(`Maateenheid ${data.name} toegevoegd`, { keepAfterRouteChange: true })
+        this.router.navigate(['/measureUnits']);
       },
       error => {
         this.alertService.error(`${error.error.message}`, { keepAfterRouteChange: true });
-        this.router.navigate(['/tags']);
+        this.router.navigate(['/measureUnits']);
       })
       .add(() => this.loading = false);
   }

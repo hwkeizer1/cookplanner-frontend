@@ -9,10 +9,14 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+import { AlertComponent } from './layout/alert/alert.component';
 import { TagListComponent } from './component/tag/tag-list/tag-list.component';
 import { TagCreateComponent } from './component/tag/tag-create/tag-create.component';
 import { TagUpdateComponent } from './component/tag/tag-update/tag-update.component';
-import { AlertComponent } from './layout/alert/alert.component';
+import { MeasureUnitListComponent } from './component/measure_unit/measure_unit-list/measure_unit-list.component';
+import { MeasureUnitCreateComponent } from './component/measure_unit/measure_unit-create/measure_unit-create.component';
+import { MeasureUnitUpdateComponent } from './component/measure_unit/measure_unit-update/measure_unit-update.component';
 
 @NgModule({
   declarations: [
@@ -20,10 +24,13 @@ import { AlertComponent } from './layout/alert/alert.component';
     HomeComponent,
     NavigationComponent,
     FooterComponent,
+    AlertComponent,
     TagListComponent,
     TagCreateComponent,
     TagUpdateComponent,
-    AlertComponent
+    MeasureUnitListComponent,
+    MeasureUnitCreateComponent,
+    MeasureUnitUpdateComponent
     ],
   imports: [
     BrowserModule,

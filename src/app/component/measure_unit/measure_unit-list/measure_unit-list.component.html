@@ -1,0 +1,24 @@
+<div class="container m-5">
+    <h1>Maateenheden</h1>
+    <a routerLink="/measureUnit-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Maateenheid toevoegen</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 10%">Id</th>
+                <th style="width: 40%">Naam</th>
+                <th style="width: 40%">Meervoud</th>
+                <th style="width: 5%"></th>
+                <th style="width: 5%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let measureUnit of measureUnits">
+                <td>{{measureUnit.id}}</td>
+                <td>{{measureUnit.name}}</td>
+                <td>{{measureUnit.pluralName}}</td>
+                <td><a routerLink="/measureUnit-update/{{measureUnit.id}}"><img src="assets/icons/pencil-square.svg" alt="Update measureUnit"></a></td>
+                <td><a (click)="deleteMeasureUnit(measureUnit.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
