@@ -28,7 +28,10 @@ export class MeasureUnitUpdateComponent implements OnInit {
 
     this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
-      pluralName: ['', Validators.required]
+      pluralName: ['', Validators.required],
+      stock: [''],
+      shopType: [''],
+      ingredientType: ['']
     })
 
     this.measureUnitService.getById(this.id)
@@ -50,7 +53,7 @@ export class MeasureUnitUpdateComponent implements OnInit {
     this.measureUnitService.update(this.id, this.updateForm.value)
       .pipe(first())
       .subscribe(data => {
-        this.alertService.success(`Categorie ${data.name} gewijzigd`, { keepAfterRouteChange: true })
+        this.alertService.success(`Maateenheid ${data.name} gewijzigd`, { keepAfterRouteChange: true })
         this.router.navigate(['/measureUnits']);
       },
       error => {

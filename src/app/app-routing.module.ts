@@ -7,6 +7,9 @@ import { TagUpdateComponent } from './component/tag/tag-update/tag-update.compon
 import { MeasureUnitListComponent } from './component/measure_unit/measure_unit-list/measure_unit-list.component';
 import { MeasureUnitCreateComponent } from './component/measure_unit/measure_unit-create/measure_unit-create.component';
 import { MeasureUnitUpdateComponent } from './component/measure_unit/measure_unit-update/measure_unit-update.component';
+import { IngredientNameListComponent } from './component/ingredient_name/ingredient-name-list/ingredient-name-list.component';
+import { IngredientNameCreateComponent } from './component/ingredient_name/ingredient-name-create/ingredient-name-create.component';
+import { IngredientNameUpdateComponent } from './component/ingredient_name/ingredient-name-update/ingredient-name-update.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +18,10 @@ const routes: Routes = [
   { path: 'tag-update/:id', component: TagUpdateComponent },
   { path: 'measureUnits', component: MeasureUnitListComponent },
   { path: 'measureUnit-create', component: MeasureUnitCreateComponent },
-  { path: 'measureUnit-update/:id', component: MeasureUnitUpdateComponent }
+  { path: 'measureUnit-update/:id', component: MeasureUnitUpdateComponent },
+  { path: 'ingredientNames', component: IngredientNameListComponent },
+  { path: 'ingredientName-create', component: IngredientNameCreateComponent },
+  { path: 'ingredientName-update/:id', component: IngredientNameUpdateComponent }
 
 ];
 

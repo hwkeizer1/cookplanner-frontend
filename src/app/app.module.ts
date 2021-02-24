@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,9 @@ import { TagUpdateComponent } from './component/tag/tag-update/tag-update.compon
 import { MeasureUnitListComponent } from './component/measure_unit/measure_unit-list/measure_unit-list.component';
 import { MeasureUnitCreateComponent } from './component/measure_unit/measure_unit-create/measure_unit-create.component';
 import { MeasureUnitUpdateComponent } from './component/measure_unit/measure_unit-update/measure_unit-update.component';
+import { IngredientNameCreateComponent } from './component/ingredient_name/ingredient-name-create/ingredient-name-create.component';
+import { IngredientNameListComponent } from './component/ingredient_name/ingredient-name-list/ingredient-name-list.component';
+import { IngredientNameUpdateComponent } from './component/ingredient_name/ingredient-name-update/ingredient-name-update.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { MeasureUnitUpdateComponent } from './component/measure_unit/measure_uni
     TagUpdateComponent,
     MeasureUnitListComponent,
     MeasureUnitCreateComponent,
-    MeasureUnitUpdateComponent
+    MeasureUnitUpdateComponent,
+    IngredientNameCreateComponent,
+    IngredientNameListComponent,
+    IngredientNameUpdateComponent
     ],
   imports: [
     BrowserModule,

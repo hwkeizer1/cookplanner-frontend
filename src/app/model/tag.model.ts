@@ -1,5 +1,5 @@
 export class Tag {
     id!: string;
-    name!: string
+    name!: string;
     isDeleting: boolean = false;
 }

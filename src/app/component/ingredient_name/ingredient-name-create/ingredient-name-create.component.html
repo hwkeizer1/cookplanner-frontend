@@ -1,0 +1,52 @@
+<div class="container m-5">
+    <h1>Ingrediënt toevoegen</h1>
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Naam:</label>
+                <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Ingrediënt naam moet worden ingevuld</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Meervoud:</label>
+                <input type="text" formControlName="pluralName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pluralName.errors }" />
+                <div *ngIf="submitted && f.pluralName.errors" class="invalid-feedback">
+                    <div *ngIf="f.pluralName.errors.required">Meervoud moet worden ingevuld</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label style="width:150px;">Voorraad:</label>
+                <input type="checkbox" formControlName="stock"/>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label style="width:150px;">Ingrediënt type</label>
+                <select formControlName="ingredientType" class="custom-select" style="width:150px;" > 
+                    <option *ngFor="let ingredientType of ingredientTypes" [ngValue]="ingredientType">{{ingredientType}}</option>
+                </select>
+            </div>
+        </div> 
+        <div class="form-row">
+            <div class="form-group col">
+                <label style="width:150px;">Winkel</label>
+                <select formControlName="shopType" class="custom-select" style="width:150px;" > 
+                    <option *ngFor="let shopType of shopTypes" [ngValue]="shopType">{{shopType}}</option>
+                </select>
+            </div>
+        </div> 
+        <div class="form-group my-5">
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Opslaan
+            </button>
+            <a routerLink="/ingredientNames" class="btn btn-link">Annuleren</a>
+        </div>
+    </form>
+</div>

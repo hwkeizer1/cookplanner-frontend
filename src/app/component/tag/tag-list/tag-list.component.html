@@ -4,7 +4,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th style="width: 10%">Id</th>
                 <th style="width: 70%">Naam</th>
                 <th style="width: 5%"></th>
                 <th style="width: 5%"></th>
@@ -12,7 +11,6 @@
         </thead>
         <tbody>
             <tr *ngFor="let tag of tags">
-                <td>{{tag.id}}</td>
                 <td>{{tag.name}}</td>
                 <td><a routerLink="/tag-update/{{tag.id}}"><img src="assets/icons/pencil-square.svg" alt="Update tag"></a></td>
                 <td><a (click)="deleteTag(tag.id)"><img src="assets/icons/trash.svg" alt=""></a></td>

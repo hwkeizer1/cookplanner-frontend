@@ -4,7 +4,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th style="width: 10%">Id</th>
                 <th style="width: 40%">Naam</th>
                 <th style="width: 40%">Meervoud</th>
                 <th style="width: 5%"></th>
@@ -13,7 +12,6 @@
         </thead>
         <tbody>
             <tr *ngFor="let measureUnit of measureUnits">
-                <td>{{measureUnit.id}}</td>
                 <td>{{measureUnit.name}}</td>
                 <td>{{measureUnit.pluralName}}</td>
                 <td><a routerLink="/measureUnit-update/{{measureUnit.id}}"><img src="assets/icons/pencil-square.svg" alt="Update measureUnit"></a></td>

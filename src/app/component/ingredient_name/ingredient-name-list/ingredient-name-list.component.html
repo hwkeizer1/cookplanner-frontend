@@ -1,0 +1,28 @@
+<div class="container-lg-desktop m-5">
+    <h1>Ingrediënten</h1>
+    <a routerLink="/ingredientName-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Ingrediënt toevoegen</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 15%">Naam</th>
+                <th style="width: 15%">Meervoud</th>
+                <th style="width: 15%">Voorraad</th>
+                <th style="width: 15%">Ingrediënt type</th>
+                <th style="width: 15%">Winkel type</th>
+                <th style="width: 5%"></th>
+                <th style="width: 5%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ingredientName of ingredientNames">
+                <td>{{ingredientName.name}}</td>
+                <td>{{ingredientName.pluralName}}</td>
+                <td><input type="checkbox" [attr.checked]="ingredientName.stock ? '' : null" disabled/></td>
+                <td>{{ingredientName.ingredientType}}</td>
+                <td>{{ingredientName.shopType}}</td>
+                <td><a routerLink="/ingredientName-update/{{ingredientName.id}}"><img src="assets/icons/pencil-square.svg" alt="Update ingredientName"></a></td>
+                <td><a (click)="deleteIngredientName(ingredientName.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
