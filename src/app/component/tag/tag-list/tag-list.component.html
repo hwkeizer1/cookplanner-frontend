@@ -1,21 +1,62 @@
 <div class="container m-5">
     <h1>Categorieën</h1>
     <a routerLink="/tag-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Categorie toevoegen</a>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th style="width: 70%">Naam</th>
-                <th style="width: 5%"></th>
-                <th style="width: 5%"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let tag of tags">
-                <td>{{tag.name}}</td>
-                <td><a routerLink="/tag-update/{{tag.id}}"><img src="assets/icons/pencil-square.svg" alt="Update tag"></a></td>
-                <td><a (click)="deleteTag(tag.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
+    <form>
+        <div class="form-group form-inline">
+            Zoeken op tekst: <input type="text" class="form-control ml-2" type="text" name="searchTerm"
+                [(ngModel)]="tagTableService.searchTerm" />
+            <span class="spinner-border text-success spinner-border-sm ml-3" *ngIf="tagTableService.loading$ | async"></span>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" sortable="id" (sort)="onSort($event)" style="width: 10%">ID
+                        <img 
+                        *ngIf="tagTableService.sortColumn === 'id' && tagTableService.sortDirection === 'asc'"
+                        class="ml-1" src="assets/icons/sort-down.svg"
+                        alt="Sort ascending">
+                    <img 
+                        *ngIf="tagTableService.sortColumn === 'id' && tagTableService.sortDirection === 'desc'"
+                        class="ml-1" src="assets/icons/sort-up.svg"
+                        alt="Sort ascending">
+                    </th>
+                    <th scope="col" sortable="name" (sort)="onSort($event)" style="width: 70%">Naam
+                        <img 
+                            *ngIf="tagTableService.sortColumn === 'name' && tagTableService.sortDirection === 'asc'"
+                            class="ml-1" src="assets/icons/sort-down.svg"
+                            alt="Sort ascending">
+                        <img 
+                            *ngIf="tagTableService.sortColumn === 'name' && tagTableService.sortDirection === 'desc'"
+                            class="ml-1" src="assets/icons/sort-up.svg"
+                            alt="Sort ascending">
+                    </th>
+                    <th scope="col" style="width: 5%"></th>
+                    <th scope="col" style="width: 5%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tag of tags$ | async">
+                    <td>{{tag.id}}</td>
+                    <td>{{tag.name}}</td>
+                    <td><a routerLink="/tag-update/{{tag.id}}"><img src="assets/icons/pencil-square.svg"
+                                alt="Update tag"></a></td>
+                    <td><a (click)="deleteTag(tag.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="tagTableService.page"
+                [pageSize]="tagTableService.pageSize">
+            </ngb-pagination>
+
+            <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="tagTableService.pageSize">
+                <option [ngValue]="2">2 items per page</option>
+                <option [ngValue]="4">4 items per page</option>
+                <option [ngValue]="6">6 items per page</option>
+            </select>
+        </div>
+    </form>
+</div>

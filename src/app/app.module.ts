@@ -9,6 +9,7 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbdSortableHeader } from './directive/sortable.directive'
 
 import { AlertComponent } from './layout/alert/alert.component';
 import { TagListComponent } from './component/tag/tag-list/tag-list.component';
@@ -20,6 +21,7 @@ import { MeasureUnitUpdateComponent } from './component/measure_unit/measure_uni
 import { IngredientNameCreateComponent } from './component/ingredient_name/ingredient-name-create/ingredient-name-create.component';
 import { IngredientNameListComponent } from './component/ingredient_name/ingredient-name-list/ingredient-name-list.component';
 import { IngredientNameUpdateComponent } from './component/ingredient_name/ingredient-name-update/ingredient-name-update.component';
+import { DecimalPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { IngredientNameUpdateComponent } from './component/ingredient_name/ingre
     MeasureUnitUpdateComponent,
     IngredientNameCreateComponent,
     IngredientNameListComponent,
-    IngredientNameUpdateComponent
+    IngredientNameUpdateComponent,
+    NgbdSortableHeader
     ],
   imports: [
     BrowserModule,
@@ -46,7 +49,7 @@ import { IngredientNameUpdateComponent } from './component/ingredient_name/ingre
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
