@@ -1,4 +1,4 @@
-<div class="container m-5">
+<div class="container mx-5">
     <h1>Categorieën</h1>
     <a routerLink="/tag-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Categorie toevoegen</a>
 
@@ -37,7 +37,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tag of tags$ | async">
+                <tr *ngFor="let tag of tagTableService.tags$ | async">
                     <td>{{tag.id}}</td>
                     <td>{{tag.name}}</td>
                     <td><a routerLink="/tag-update/{{tag.id}}"><img src="assets/icons/pencil-square.svg"
@@ -48,15 +48,16 @@
         </table>
 
         <div class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="tagTableService.page"
+            <ngb-pagination [collectionSize]="(tagTableService.total$ | async)!" [(page)]="tagTableService.page"
                 [pageSize]="tagTableService.pageSize">
             </ngb-pagination>
 
             <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="tagTableService.pageSize">
-                <option [ngValue]="2">2 items per page</option>
-                <option [ngValue]="4">4 items per page</option>
-                <option [ngValue]="6">6 items per page</option>
+                <option [ngValue]="5">5 items per page</option>
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="25">25 items per page</option>
+                <option [ngValue]="100">100 items per page</option>
             </select>
-        </div>
+        </div> 
     </form>
 </div>

@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators'
+import { Tag } from 'src/app/model/tag.model';
 import { AlertService } from 'src/app/service/alert/alert.service';
 
 import { TagService } from 'src/app/service/tag/tag.service';
+import { TagTableService } from 'src/app/service/tag/tag-table.service';
 
 @Component({
   selector: 'app-tag-update',
@@ -22,6 +24,7 @@ export class TagUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private tagService: TagService,
+    private tagTableService: TagTableService,
     private alertService:AlertService) { }
 
   ngOnInit(): void {
@@ -31,9 +34,11 @@ export class TagUpdateComponent implements OnInit {
       name: ['', Validators.required]
     })
 
-    this.tagService.getById(this.id)
-      .pipe(first())
-      .subscribe(x => this.updateForm.patchValue(x));
+    let tag: Tag = this.tagService.load(this.id)
+    if (tag) {
+      this.updateForm.patchValue(tag);
+    }
+    
   }
 
   get f() { return this.updateForm.controls}
@@ -48,15 +53,8 @@ export class TagUpdateComponent implements OnInit {
     }
 
     this.tagService.update(this.id, this.updateForm.value)
-      .pipe(first())
-      .subscribe(data => {
-        this.alertService.success(`Categorie ${data.name} gewijzigd`, { keepAfterRouteChange: true })
-        this.router.navigate(['/tags']);
-      },
-      error => {
-        this.alertService.error(`${error.error.message}`, { keepAfterRouteChange: true });
-        this.router.navigate(['/tags']);
-      })
+    this.tagTableService.notifyChange();
+    this.router.navigate(['/tags']);
   }
 
 }

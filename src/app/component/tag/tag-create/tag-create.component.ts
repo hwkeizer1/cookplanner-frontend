@@ -38,18 +38,20 @@ export class TagCreateComponent implements OnInit {
       return
     }
 
-    this.loading = true;
-    this.tagService.create(this.createForm.value)
-      .pipe(first())
-      .subscribe(data => {
-        this.alertService.success(`Categorie ${data.name} toegevoegd`, { keepAfterRouteChange: true })
-        this.router.navigate(['/tags']);
-      },
-      error => {
-        this.alertService.error(`${error.error.message}`, { keepAfterRouteChange: true });
-        this.router.navigate(['/tags']);
-      })
-      .add(() => this.loading = false);
+    // this.loading = true;
+    this.tagService.create(this.createForm.value);
+    this.router.navigate(['/tags']);
+    // this.loading = false;
+
+      // .subscribe(data => {
+      //   this.alertService.success(`Categorie ${data.name} toegevoegd`, { keepAfterRouteChange: true })
+      //   this.router.navigate(['/tags']);
+      // },
+      // error => {
+      //   this.alertService.error(`${error.error.message}`, { keepAfterRouteChange: true });
+      //   this.router.navigate(['/tags']);
+      // })
+      // .add(() => this.loading = false);
   }
 
   // Convenience getter for easy access to form fields

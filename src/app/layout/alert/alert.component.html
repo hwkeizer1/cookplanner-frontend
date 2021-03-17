@@ -1,7 +1,14 @@
-<div class="container m-5">
+<!-- <div class="container mx-5 mt-2" style="min-height: 50px; background-color: rgb(250, 246, 246);">
     <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
         <a class="close" (click)="removeAlert(alert)">&times;</a>
         <span [innerHTML]="alert.message"></span>
     </div>
+</div> -->
+
+<div class="container mt-5" style="min-height: 51px; background-color: rgb(250, 246, 246);">
+  <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
+    <a class="close" (click)="removeAlert(alert)">&times;</a>
+    <span [innerHTML]="alert.message"></span>
+</div>
 </div>
 
