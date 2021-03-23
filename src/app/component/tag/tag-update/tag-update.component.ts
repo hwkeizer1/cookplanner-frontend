@@ -33,7 +33,6 @@ export class TagUpdateComponent implements OnInit {
     if (tag) {
       this.updateForm.patchValue(tag);
     }
-    
   }
 
   onSubmit() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { NgbdSortableHeader, SortEvent } from 'src/app/directive/sortable.directive';
 import { TagService } from 'src/app/service/tag/tag.service';
 

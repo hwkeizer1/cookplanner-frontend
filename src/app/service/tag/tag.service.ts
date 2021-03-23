@@ -55,8 +55,7 @@ function sort(tags: Tag[], column: string, direction: string): Tag[] {
 }
 
 function matches(tag: Tag, term: string, pipe: PipeTransform) {
-  return tag.name.toLowerCase().includes(term.toLowerCase())
-    || pipe.transform(tag.id).includes(term);
+  return tag.name.toLowerCase().includes(term.toLowerCase());
 }
 
 @Injectable({
@@ -84,6 +83,7 @@ export class TagService {
     private tagApiService: TagApiService,
     private alertService: AlertService,
     private pipe: DecimalPipe) {
+    
     this._tags$.subscribe(
       data => {
         this._tags = data;
@@ -180,7 +180,6 @@ export class TagService {
   }
 
   update(id: string, tag: Tag) {
-    console.log(tag)
     this.tagApiService.update(id, tag).subscribe(
       data => {
         this.dataStore.tags.forEach((t, i) => {

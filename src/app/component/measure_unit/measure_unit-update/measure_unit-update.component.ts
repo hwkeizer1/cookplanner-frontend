@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators'
+import { MeasureUnit } from 'src/app/model/measure_unit.model';
 
-import { AlertService } from 'src/app/service/alert/alert.service';
 import { MeasureUnitService } from 'src/app/service/measure_unit/measure_unit.service';
 
 @Component({
@@ -17,48 +16,36 @@ export class MeasureUnitUpdateComponent implements OnInit {
   loading = false;
   submitted = false;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private measureUnitService: MeasureUnitService,
-    private alertService:AlertService) { }
+    private measureUnitService: MeasureUnitService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
 
     this.updateForm = this.formBuilder.group({
       name: ['', Validators.required],
-      pluralName: ['', Validators.required],
-      stock: [''],
-      shopType: [''],
-      ingredientType: ['']
+      pluralName: ['', Validators.required]
     })
 
-    this.measureUnitService.getById(this.id)
-      .pipe(first())
-      .subscribe(x => this.updateForm.patchValue(x));
+    let measureUnit: MeasureUnit = this.measureUnitService.load(this.id)
+    if (measureUnit) {
+      this.updateForm.patchValue(measureUnit);
+    }
   }
-
-  get f() { return this.updateForm.controls}
 
   onSubmit() {
     this.submitted = true;
-
-    this.alertService.clear();
 
     if (this.updateForm.invalid) {
       return;
     }
 
     this.measureUnitService.update(this.id, this.updateForm.value)
-      .pipe(first())
-      .subscribe(data => {
-        this.alertService.success(`Maateenheid ${data.name} gewijzigd`, { keepAfterRouteChange: true })
-        this.router.navigate(['/measureUnits']);
-      },
-      error => {
-        this.alertService.error(`${error.error.message}`, { keepAfterRouteChange: true });
-        this.router.navigate(['/measureUnits']);
-      })
+    this.router.navigate(['/measureUnits']);
   }
+
+  get f() { return this.updateForm.controls}
 }

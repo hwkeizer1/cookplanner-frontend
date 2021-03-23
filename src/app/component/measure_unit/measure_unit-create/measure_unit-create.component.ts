@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators'
 
-import { AlertService } from 'src/app/service/alert/alert.service';
 import { MeasureUnitService } from 'src/app/service/measure_unit/measure_unit.service';
+import { AlertService } from 'src/app/service/alert/alert.service';
 
 @Component({
   selector: 'app-measure_unit-create',
@@ -40,21 +39,10 @@ export class MeasureUnitCreateComponent implements OnInit {
       return
     }
 
-    this.loading = true;
-    this.measureUnitService.create(this.createForm.value)
-      .pipe(first())
-      .subscribe(data => {
-        this.alertService.success(`Maateenheid ${data.name} toegevoegd`, { keepAfterRouteChange: true })
-        this.router.navigate(['/measureUnits']);
-      },
-      error => {
-        this.alertService.error(`${error.error.message}`, { keepAfterRouteChange: true });
-        this.router.navigate(['/measureUnits']);
-      })
-      .add(() => this.loading = false);
+    this.measureUnitService.create(this.createForm.value);
+    this.router.navigate(['/measureUnits']);
   }
 
-  // Convenience getter for easy access to form fields
   get f() { return this.createForm.controls; }
 
 }

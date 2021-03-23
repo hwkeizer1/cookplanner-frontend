@@ -1,7 +1,5 @@
 <div class="container mx-5">
     <h1>Categorieën</h1>
-    
-
     <form>
         <div class="form-group form-inline">
             Zoeken op tekst: <input type="text" class="form-control ml-2" type="text" name="searchTerm"
@@ -11,21 +9,9 @@
               <a routerLink="/tag-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Categorie toevoegen</a>
             </div>
         </div>
-       
-
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col" sortable="id" (sort)="onSort($event)" style="width: 10%">ID
-                        <img 
-                        *ngIf="tagService.sortColumn === 'id' && tagService.sortDirection === 'asc'"
-                        class="ml-1" src="assets/icons/sort-down.svg"
-                        alt="Sort ascending">
-                    <img 
-                        *ngIf="tagService.sortColumn === 'id' && tagService.sortDirection === 'desc'"
-                        class="ml-1" src="assets/icons/sort-up.svg"
-                        alt="Sort ascending">
-                    </th>
                     <th scope="col" sortable="name" (sort)="onSort($event)" style="width: 70%">Naam
                         <img 
                             *ngIf="tagService.sortColumn === 'name' && tagService.sortDirection === 'asc'"
@@ -42,7 +28,6 @@
             </thead>
             <tbody>
                 <tr *ngFor="let tag of tagService.tagPage$ | async">
-                    <td>{{tag.id}}</td>
                     <td>{{tag.name}}</td>
                     <td><a routerLink="/tag-update/{{tag.id}}"><img src="assets/icons/pencil-square.svg"
                                 alt="Update tag"></a></td>
@@ -50,7 +35,6 @@
                 </tr>
             </tbody>
         </table>
-
         <div class="d-flex justify-content-between p-2">
             <ngb-pagination [collectionSize]="(tagService.total$ | async)!" [(page)]="tagService.page"
                 [pageSize]="tagService.pageSize">
