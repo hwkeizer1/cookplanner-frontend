@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators'
 import { Tag } from 'src/app/model/tag.model';
-import { AlertService } from 'src/app/service/alert/alert.service';
 
 import { TagService } from 'src/app/service/tag/tag.service';
-import { TagTableService } from 'src/app/service/tag/tag-table.service';
 
 @Component({
   selector: 'app-tag-update',
@@ -23,9 +20,7 @@ export class TagUpdateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private tagService: TagService,
-    private tagTableService: TagTableService,
-    private alertService:AlertService) { }
+    private tagService: TagService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
@@ -46,14 +41,11 @@ export class TagUpdateComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    this.alertService.clear();
-
     if (this.updateForm.invalid) {
       return;
     }
 
     this.tagService.update(this.id, this.updateForm.value)
-    this.tagTableService.notifyChange();
     this.router.navigate(['/tags']);
   }
 

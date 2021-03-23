@@ -1,6 +1,5 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbdSortableHeader, SortEvent } from 'src/app/directive/sortable.directive';
-import { TagTableService } from 'src/app/service/tag/tag-table.service';
 import { TagService } from 'src/app/service/tag/tag.service';
 
 @Component({
@@ -13,8 +12,7 @@ export class TagListComponent {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
-    public tagService: TagService,
-    public tagTableService: TagTableService) { 
+    public tagService: TagService) { 
       this.tagService.loadAll();
       this.headers = new QueryList;
     }
@@ -27,13 +25,12 @@ export class TagListComponent {
       }
     });
 
-    this.tagTableService.sortColumn = column;
-    this.tagTableService.sortDirection = direction;
+    this.tagService.sortColumn = column;
+    this.tagService.sortDirection = direction;
   }
 
   deleteTag(id: string) {
     this.tagService.remove(id);
-    this.tagTableService.notifyChange();
   }
 
 }
