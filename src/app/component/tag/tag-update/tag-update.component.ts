@@ -36,8 +36,6 @@ export class TagUpdateComponent implements OnInit {
     
   }
 
-  get f() { return this.updateForm.controls}
-
   onSubmit() {
     this.submitted = true;
 
@@ -48,5 +46,7 @@ export class TagUpdateComponent implements OnInit {
     this.tagService.update(this.id, this.updateForm.value)
     this.router.navigate(['/tags']);
   }
+
+  get f() { return this.updateForm.controls}
 
 }

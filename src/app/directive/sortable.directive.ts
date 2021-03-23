@@ -1,8 +1,5 @@
 import {Directive, EventEmitter, Input, Output} from '@angular/core';
-// import { Tag } from '../model/tag.model';
 
-
-// export type SortColumn = keyof Tag | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
