@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { MeasureUnitService } from 'src/app/service/measure_unit/measure_unit.service';
-import { AlertService } from 'src/app/service/alert/alert.service';
 
 @Component({
   selector: 'app-measure_unit-create',
@@ -18,9 +17,7 @@ export class MeasureUnitCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private measureUnitService: MeasureUnitService,
-    private alertService: AlertService
-  ) { }
+    private measureUnitService: MeasureUnitService) { }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
@@ -31,8 +28,6 @@ export class MeasureUnitCreateComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    this.alertService.clear();
 
     if (this.createForm.invalid) {
       alert("Invalid");

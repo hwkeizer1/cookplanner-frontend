@@ -1,28 +1,79 @@
-<div class="container-lg-desktop m-5">
-    <h1>Ingrediënten</h1>
-    <a routerLink="/ingredientName-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Ingrediënt toevoegen</a>
+<div class="container-lg-desktop mx-5">
+  <h1>Ingrediënten</h1>
+  <form>
+    <div class="form-group form-inline">
+      Zoeken op tekst: <input type="text" class="form-control ml-2" type="text" name="searchTerm"
+        [(ngModel)]="ingredientNameService.searchTerm" />
+      <span class="spinner-border text-success spinner-border-sm ml-3"
+        *ngIf="ingredientNameService.loading$ | async"></span>
+      <div class="ml-auto">
+        <a routerLink="/ingredientName-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Ingrediënt
+          toevoegen</a>
+      </div>
+    </div>
     <table class="table table-striped">
-        <thead>
-            <tr>
-                <th style="width: 15%">Naam</th>
-                <th style="width: 15%">Meervoud</th>
-                <th style="width: 15%">Voorraad</th>
-                <th style="width: 15%">Ingrediënt type</th>
-                <th style="width: 15%">Winkel type</th>
-                <th style="width: 5%"></th>
-                <th style="width: 5%"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let ingredientName of ingredientNames">
-                <td>{{ingredientName.name}}</td>
-                <td>{{ingredientName.pluralName}}</td>
-                <td><input type="checkbox" [attr.checked]="ingredientName.stock ? '' : null" disabled/></td>
-                <td>{{ingredientName.ingredientType}}</td>
-                <td>{{ingredientName.shopType}}</td>
-                <td><a routerLink="/ingredientName-update/{{ingredientName.id}}"><img src="assets/icons/pencil-square.svg" alt="Update ingredientName"></a></td>
-                <td><a (click)="deleteIngredientName(ingredientName.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
-            </tr>
-        </tbody>
+      <thead>
+        <tr>
+          <th scope="col" sortable="name" (sort)="onSort($event)" style="width: 15%">Naam
+            <img *ngIf="ingredientNameService.sortColumn === 'name' && ingredientNameService.sortDirection === 'asc'"
+              class="ml-1" src="assets/icons/sort-down.svg" alt="Sort ascending">
+            <img *ngIf="ingredientNameService.sortColumn === 'name' && ingredientNameService.sortDirection === 'desc'"
+              class="ml-1" src="assets/icons/sort-up.svg" alt="Sort ascending">
+          </th>
+          <th scope="col" sortable="pluralName" (sort)="onSort($event)" style="width: 15%">Meervoud
+            <img
+              *ngIf="ingredientNameService.sortColumn === 'pluralName' && ingredientNameService.sortDirection === 'asc'"
+              class="ml-1" src="assets/icons/sort-down.svg" alt="Sort ascending">
+            <img
+              *ngIf="ingredientNameService.sortColumn === 'pluralName' && ingredientNameService.sortDirection === 'desc'"
+              class="ml-1" src="assets/icons/sort-up.svg" alt="Sort ascending">
+          </th>
+          <th scope="col" sortable="stock" (sort)="onSort($event)" style="width: 15%">Op voorraad
+            <img *ngIf="ingredientNameService.sortColumn === 'stock' && ingredientNameService.sortDirection === 'asc'"
+              class="ml-1" src="assets/icons/sort-down.svg" alt="Sort ascending">
+            <img *ngIf="ingredientNameService.sortColumn === 'stock' && ingredientNameService.sortDirection === 'desc'"
+              class="ml-1" src="assets/icons/sort-up.svg" alt="Sort ascending">
+          </th>
+          <th scope="col" sortable="ingredientType" (sort)="onSort($event)" style="width: 15%">Type
+            <img *ngIf="ingredientNameService.sortColumn === 'ingredientType' && ingredientNameService.sortDirection === 'asc'"
+              class="ml-1" src="assets/icons/sort-down.svg" alt="Sort ascending">
+            <img *ngIf="ingredientNameService.sortColumn === 'ingredientType' && ingredientNameService.sortDirection === 'desc'"
+              class="ml-1" src="assets/icons/sort-up.svg" alt="Sort ascending">
+          </th>
+          <th scope="col" sortable="shopType" (sort)="onSort($event)" style="width: 15%">Winkel
+            <img *ngIf="ingredientNameService.sortColumn === 'shopType' && ingredientNameService.sortDirection === 'asc'"
+              class="ml-1" src="assets/icons/sort-down.svg" alt="Sort ascending">
+            <img *ngIf="ingredientNameService.sortColumn === 'shopType' && ingredientNameService.sortDirection === 'desc'"
+              class="ml-1" src="assets/icons/sort-up.svg" alt="Sort ascending">
+          </th>
+          <th scope="col" style="width: 5%"></th>
+          <th scope="col" style="width: 5%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ingredientName of ingredientNameService.ingredientNamePage$ | async">
+          <td>{{ingredientName.name}}</td>
+          <td>{{ingredientName.pluralName}}</td>
+          <td><input type="checkbox" [attr.checked]="ingredientName.stock ? '' : null" disabled /></td>
+          <td>{{ingredientName.ingredientType}}</td>
+          <td>{{ingredientName.shopType}}</td>
+          <td><a routerLink="/ingredientName-update/{{ingredientName.id}}"><img src="assets/icons/pencil-square.svg"
+                alt="Update ingredientName"></a></td>
+          <td><a (click)="deleteIngredientName(ingredientName.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
+        </tr>
+      </tbody>
     </table>
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination [collectionSize]="(ingredientNameService.total$ | async)!" [(page)]="ingredientNameService.page"
+        [pageSize]="ingredientNameService.pageSize">
+      </ngb-pagination>
+
+      <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="ingredientNameService.pageSize">
+        <option [ngValue]="5">5 items per page</option>
+        <option [ngValue]="10">10 items per page</option>
+        <option [ngValue]="25">25 items per page</option>
+        <option [ngValue]="100">100 items per page</option>
+      </select>
+    </div>
+  </form>
 </div>

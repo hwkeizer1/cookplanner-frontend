@@ -30,7 +30,7 @@
                 <label style="width:150px;">Ingrediënt type</label>
                 <select formControlName="ingredientType" class="custom-select" style="width:150px;" >
                     <option></option>
-                    <option *ngFor="let ingredientType of ingredientTypes" [ngValue]="ingredientType">{{ingredientType}}</option>
+                    <option *ngFor="let ingredientType of ingredientNameService.availableIngredientTypes" [ngValue]="ingredientType">{{ingredientType}}</option>
                 </select>
             </div>
         </div> 
@@ -39,7 +39,7 @@
                 <label style="width:150px;">Winkel</label>
                 <select formControlName="shopType" class="custom-select" style="width:150px;" > 
                     <option></option>
-                    <option *ngFor="let shopType of shopTypes" [ngValue]="shopType">{{shopType}}</option>
+                    <option *ngFor="let shopType of ingredientNameService.availableShopTypes" [ngValue]="shopType">{{shopType}}</option>
                 </select>
             </div>
         </div> 

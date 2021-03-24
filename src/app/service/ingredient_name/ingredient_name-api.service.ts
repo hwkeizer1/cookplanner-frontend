@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'
-import { IngredientName } from 'src/app/model/ingredient_name';
+import { IngredientName } from 'src/app/model/ingredient_name.model';
 
 const baseUrl = `${environment.backendUrl}ingredient-names`
 
 @Injectable({
   providedIn: 'root'
 })
-export class IngredientNameService {
+export class IngredientNameApiService {
 
   constructor(private http: HttpClient) { }
 

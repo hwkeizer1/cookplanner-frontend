@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { TagService } from 'src/app/service/tag/tag.service';
-import { AlertService } from 'src/app/service/alert/alert.service';
 
 @Component({
   selector: 'app-tag-create',
@@ -18,8 +17,7 @@ export class TagCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private tagService: TagService,
-    private alertService: AlertService) { }
+    private tagService: TagService) { }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
@@ -29,8 +27,6 @@ export class TagCreateComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    this.alertService.clear();
 
     if (this.createForm.invalid) {
       alert("Invalid");

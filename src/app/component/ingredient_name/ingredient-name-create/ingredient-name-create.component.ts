@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators'
 
-import { AlertService } from 'src/app/service/alert/alert.service';
-import { IngredientNameService } from 'src/app/service/ingredient_name/ingredient-name.service';
+import { IngredientNameService } from 'src/app/service/ingredient_name/ingredient_name.service';
 
 function removeEmptyProperties(properties: any) {
   if (properties.ingredientType == '') delete properties["ingredientType"]
@@ -27,9 +25,7 @@ export class IngredientNameCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private ingredientNameService: IngredientNameService,
-    private alertService: AlertService
-  ) { }
+    public ingredientNameService: IngredientNameService) { }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
@@ -39,15 +35,10 @@ export class IngredientNameCreateComponent implements OnInit {
       shopType: [''],
       ingredientType: ['']
     })
-    this.ingredientNameService.getAvailableShopTypes()
-      .pipe(first())
-      .subscribe(shopTypes => {this.shopTypes = shopTypes});
   }
 
   onSubmit() {
     this.submitted = true;
-
-    this.alertService.clear();
 
     if (this.createForm.invalid) {
       alert("Invalid");
@@ -56,21 +47,10 @@ export class IngredientNameCreateComponent implements OnInit {
 
   removeEmptyProperties(this.createForm.value) 
   
-    this.loading = true;
-    this.ingredientNameService.create(this.createForm.value)
-      .pipe(first())
-      .subscribe(data => {
-        this.alertService.success(`Ingrediënt ${data.name} toegevoegd`, { keepAfterRouteChange: true })
-        this.router.navigate(['/ingredientNames']);
-      },
-      error => {
-        this.alertService.error(`${error.error.message}`, { keepAfterRouteChange: true });
-        this.router.navigate(['/ingredientNames']);
-      })
-      .add(() => this.loading = false);
+  this.ingredientNameService.create(this.createForm.value);
+  this.router.navigate(['/ingredientNames']);
   }
 
-   // Convenience getter for easy access to form fields
    get f() { return this.createForm.controls; }
 
 }

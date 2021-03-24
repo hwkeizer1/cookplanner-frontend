@@ -113,7 +113,7 @@ export class MeasureUnitService {
   get sortColumn() { return this._state.sortColumn; }
   get sortDirection() { return this._state.sortDirection; }
 
-  set page(page: number) { console.log(`pagenumber: ${page}`); this._set({ pageNumber: page }) }
+  set page(page: number) { this._set({ pageNumber: page }) }
   set pageSize(pageSize: number) { this._set({ pageSize }) }
   set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
   set sortColumn(sortColumn: string) { this._set({ sortColumn }) }

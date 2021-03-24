@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators'
 
-import { IngredientName } from 'src/app/model/ingredient_name';
-import { AlertService } from 'src/app/service/alert/alert.service';
-import { IngredientNameService } from 'src/app/service/ingredient_name/ingredient-name.service';
+import { IngredientName } from 'src/app/model/ingredient_name.model';
+import { IngredientNameService } from 'src/app/service/ingredient_name/ingredient_name.service';
 
 function removeEmptyProperties(properties: any) {
   if (properties.ingredientType == '') delete properties["ingredientType"]
@@ -30,8 +28,7 @@ export class IngredientNameUpdateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private ingredientNameService: IngredientNameService,
-    private alertService:AlertService) { }
+    public ingredientNameService: IngredientNameService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
@@ -44,26 +41,16 @@ export class IngredientNameUpdateComponent implements OnInit {
       ingredientType: ['']
     })
 
-    this.ingredientNameService.getById(this.id)
-      .pipe(first())
-      .subscribe(x => this.updateForm.patchValue(x));
-    
-
-    this.ingredientNameService.getAvailableIngredientTypes()
-      .pipe(first())
-      .subscribe(ingredientTypes => {this.ingredientTypes = ingredientTypes});
-
-    this.ingredientNameService.getAvailableShopTypes()
-      .pipe(first())
-      .subscribe(shopTypes => {this.shopTypes = shopTypes});
+    let ingredientName: IngredientName = this.ingredientNameService.load(this.id)
+    if (ingredientName) {
+      this.updateForm.patchValue(ingredientName);
+    }
   }
 
   get f() { return this.updateForm.controls}
 
   onSubmit() {
     this.submitted = true;
-
-    this.alertService.clear();
 
     if (this.updateForm.invalid) {
       return;
@@ -72,14 +59,6 @@ export class IngredientNameUpdateComponent implements OnInit {
     removeEmptyProperties(this.updateForm.value);
 
     this.ingredientNameService.update(this.id, this.updateForm.value)
-      .pipe(first())
-      .subscribe(data => {
-        this.alertService.success(`Ingrediënt ${data.name} gewijzigd`, { keepAfterRouteChange: true })
-        this.router.navigate(['/ingredientNames']);
-      },
-      error => {
-        this.alertService.error(`${error.error.message}`, { keepAfterRouteChange: true });
-        this.router.navigate(['/ingredientNames']);
-      })
+    this.router.navigate(['/ingredientNames']);
   }
 }

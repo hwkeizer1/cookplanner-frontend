@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Tag } from 'src/app/model/tag.model';
 
+import { Tag } from 'src/app/model/tag.model';
 import { TagService } from 'src/app/service/tag/tag.service';
 
 @Component({

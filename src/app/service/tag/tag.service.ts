@@ -1,15 +1,15 @@
 /*
 This code is inspired by https://stackblitz.com/edit/ngbootstrap-table?file=app%2Ftable-complete.ts
 */
-
 import { Injectable, PipeTransform } from '@angular/core';
 import { Observable, Subject, of, BehaviorSubject } from 'rxjs';
 import { debounceTime, tap, switchMap, delay } from 'rxjs/operators'
-import { Tag } from 'src/app/model/tag.model';
 import { SortDirection } from 'src/app/directive/sortable.directive';
 import { AlertService } from '../alert/alert.service';
-import { TagApiService } from './tag-api.service';
 import { DecimalPipe } from '@angular/common';
+
+import { Tag } from 'src/app/model/tag.model';
+import { TagApiService } from './tag-api.service';
 
 interface SearchResult {
   tags: Tag[];
@@ -111,7 +111,7 @@ export class TagService {
   get sortColumn() { return this._state.sortColumn; }
   get sortDirection() { return this._state.sortDirection; }
 
-  set page(page: number) { console.log(`pagenumber: ${page}`); this._set({ pageNumber: page }) }
+  set page(page: number) { this._set({ pageNumber: page }) }
   set pageSize(pageSize: number) { this._set({ pageSize }) }
   set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
   set sortColumn(sortColumn: string) { this._set({ sortColumn }) }
