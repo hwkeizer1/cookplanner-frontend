@@ -63,7 +63,10 @@ function sort(ingredientNames: IngredientName[], column: string, direction: stri
 }
 
 function matches(ingredientName: IngredientName, term: string, pipe: PipeTransform) {
-  return ingredientName.name.toLowerCase().includes(term.toLowerCase());
+  return ingredientName.name.toLowerCase().includes(term.toLowerCase())
+    || ingredientName.pluralName.toLowerCase().includes(term.toLowerCase())
+    || ingredientName.ingredientType?.toLowerCase().includes(term.toLowerCase())
+    || ingredientName.shopType?.toLowerCase().includes(term.toLowerCase());
 }
 
 @Injectable({
