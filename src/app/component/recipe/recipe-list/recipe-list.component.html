@@ -1,0 +1,51 @@
+<div class="container mx-5">
+  <h1>Recepten</h1>
+  <form>
+      <div class="form-group form-inline">
+          Zoeken op tekst: <input type="text" class="form-control ml-2" type="text" name="searchTerm"
+              [(ngModel)]="recipeService.searchTerm" />
+          <span class="spinner-border text-success spinner-border-sm ml-3" *ngIf="recipeService.loading$ | async"></span>
+          <div class="ml-auto">
+            <a routerLink="/recipe-create" routerLinkActive="active" class="btn btn-sm btn-success mb-2">Recept toevoegen</a>
+          </div>
+      </div>
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th scope="col" sortable="name" (sort)="onSort($event)" style="width: 70%">Naam
+                      <img 
+                          *ngIf="recipeService.sortColumn === 'name' && recipeService.sortDirection === 'asc'"
+                          class="ml-1" src="assets/icons/sort-down.svg"
+                          alt="Sort ascending">
+                      <img 
+                          *ngIf="recipeService.sortColumn === 'name' && recipeService.sortDirection === 'desc'"
+                          class="ml-1" src="assets/icons/sort-up.svg"
+                          alt="Sort ascending">
+                  </th>
+                  <th scope="col" style="width: 5%"></th>
+                  <th scope="col" style="width: 5%"></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let recipe of recipeService.recipePage$ | async">
+                  <td>{{recipe.name}}</td>
+                  <td><a routerLink="/recipe-update/{{recipe.id}}"><img src="assets/icons/pencil-square.svg"
+                              alt="Update Recipe"></a></td>
+                  <td><a (click)="deleteRecipe(recipe.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
+              </tr>
+          </tbody>
+      </table>
+      <div class="d-flex justify-content-between p-2">
+          <ngb-pagination [collectionSize]="(recipeService.total$ | async)!" [(page)]="recipeService.page"
+              [pageSize]="recipeService.pageSize">
+          </ngb-pagination>
+
+          <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="recipeService.pageSize">
+              <option [ngValue]="5">5 items per page</option>
+              <option [ngValue]="10">10 items per page</option>
+              <option [ngValue]="25">25 items per page</option>
+              <option [ngValue]="100">100 items per page</option>
+          </select>
+      </div> 
+  </form>
+</div>

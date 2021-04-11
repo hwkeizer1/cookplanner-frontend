@@ -22,6 +22,9 @@ import { IngredientNameCreateComponent } from './component/ingredient_name/ingre
 import { IngredientNameListComponent } from './component/ingredient_name/ingredient-name-list/ingredient-name-list.component';
 import { IngredientNameUpdateComponent } from './component/ingredient_name/ingredient-name-update/ingredient-name-update.component';
 import { DecimalPipe } from '@angular/common';
+import { RecipeListComponent } from './component/recipe/recipe-list/recipe-list.component';
+import { RecipeUpdateComponent } from './component/recipe/recipe-update/recipe-update.component';
+import { RecipeCreateComponent } from './component/recipe/recipe-create/recipe-create.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { DecimalPipe } from '@angular/common';
     IngredientNameCreateComponent,
     IngredientNameListComponent,
     IngredientNameUpdateComponent,
-    NgbdSortableHeader
+    NgbdSortableHeader,
+    RecipeListComponent,
+    RecipeUpdateComponent,
+    RecipeCreateComponent
     ],
   imports: [
     BrowserModule,

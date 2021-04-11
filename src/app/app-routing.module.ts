@@ -10,6 +10,9 @@ import { MeasureUnitUpdateComponent } from './component/measure_unit/measure_uni
 import { IngredientNameListComponent } from './component/ingredient_name/ingredient-name-list/ingredient-name-list.component';
 import { IngredientNameCreateComponent } from './component/ingredient_name/ingredient-name-create/ingredient-name-create.component';
 import { IngredientNameUpdateComponent } from './component/ingredient_name/ingredient-name-update/ingredient-name-update.component';
+import { RecipeListComponent } from './component/recipe/recipe-list/recipe-list.component';
+import { RecipeCreateComponent } from './component/recipe/recipe-create/recipe-create.component';
+import { RecipeUpdateComponent } from './component/recipe/recipe-update/recipe-update.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,7 +24,10 @@ const routes: Routes = [
   { path: 'measureUnit-update/:id', component: MeasureUnitUpdateComponent },
   { path: 'ingredientNames', component: IngredientNameListComponent },
   { path: 'ingredientName-create', component: IngredientNameCreateComponent },
-  { path: 'ingredientName-update/:id', component: IngredientNameUpdateComponent }
+  { path: 'ingredientName-update/:id', component: IngredientNameUpdateComponent },
+  { path: 'recipes', component: RecipeListComponent },
+  { path: 'recipe-create', component: RecipeCreateComponent },
+  { path: 'recipe-update/:id', component: RecipeUpdateComponent }
 
 ];
 
