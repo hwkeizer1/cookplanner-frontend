@@ -30,7 +30,16 @@ let compareString = function (v1: string, v2: string) {
 }
 
 let compareNumber = function (v1, v2) {
-  return v1 < v2 ? -1 : v1 > v2 ? 1 : 0
+  return v1 < v2 ? 1 : v1 > v2 ? -1 : 0
+}
+
+let compareDate = function (v1: Date | any, v2: Date | any) {
+  var x = Date.parse(v1);
+  var y = Date.parse(v2);
+  if (x == y) { return 0; }
+  if (isNaN(x) || x < y) {return 1}
+  if (isNaN(y) || x > y) {return -1}
+  return 0;
 }
 
 function sort(recipes: Recipe[], column: string, direction: string): Recipe[] {
@@ -45,7 +54,12 @@ function sort(recipes: Recipe[], column: string, direction: string): Recipe[] {
       if (column === 'recipeType') {
         res = compareString(a[column], b[column]);
       }
-
+      if (column ==='timesServed') {
+        res = compareNumber(a[column], b[column]);
+      }
+      if (column ==='lastServed') {
+        res = compareDate(a[column], b[column]);
+      }
       return direction === 'asc' ? res : -res;
     })
   }
