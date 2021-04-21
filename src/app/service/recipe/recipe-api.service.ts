@@ -32,4 +32,8 @@ export class RecipeApiService {
   delete(id: string) {
     return this.http.delete<Recipe>(`${baseUrl}/${id}`);
   }
+
+  getAvailableRecipeTypes() {
+    return this.http.get<string[]>(`${baseUrl}/recipetypes`)
+  }
 }

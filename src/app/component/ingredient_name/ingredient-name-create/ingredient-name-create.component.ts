@@ -41,7 +41,6 @@ export class IngredientNameCreateComponent implements OnInit {
     this.submitted = true;
 
     if (this.createForm.invalid) {
-      alert("Invalid");
       return
     }
 

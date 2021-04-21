@@ -29,7 +29,6 @@ export class TagCreateComponent implements OnInit {
     this.submitted = true;
 
     if (this.createForm.invalid) {
-      alert("Invalid");
       return
     }
 

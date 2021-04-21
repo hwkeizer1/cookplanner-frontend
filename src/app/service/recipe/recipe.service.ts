@@ -84,6 +84,8 @@ export class RecipeService {
   private _recipePage$ = new BehaviorSubject<Recipe[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
+  private _availableRecipeTypes?: string[];
+
   private _state: State = {
     pageNumber: 1,
     pageSize: 10,
@@ -100,6 +102,13 @@ export class RecipeService {
     this._recipes$.subscribe(
       data => {
         this._recipes = data;
+      }
+    )
+
+    this.recipeApiService.getAvailableRecipeTypes().subscribe(
+      data => {
+        this._availableRecipeTypes = data;
+        console.log(this._availableRecipeTypes)
       }
     )
 
@@ -129,6 +138,7 @@ export class RecipeService {
   set searchTerm(searchTerm: string) { this._set({ searchTerm }); }
   set sortColumn(sortColumn: string) { this._set({ sortColumn }) }
   set sortDirection(sortDirection: SortDirection) { this._set({ sortDirection }); }
+  get availableRecipeTypes() { return this._availableRecipeTypes; }
 
   private _set(patch: Partial<State>) {
     Object.assign(this._state, patch);

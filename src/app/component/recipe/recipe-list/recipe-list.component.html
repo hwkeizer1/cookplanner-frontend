@@ -19,7 +19,7 @@
             <img *ngIf="recipeService.sortColumn === 'name' && recipeService.sortDirection === 'desc'" class="ml-1"
               src="assets/icons/sort-up.svg" alt="Sort ascending">
           </th>
-          <th scope="col" sortable="recipeType" (sort)="onSort($event)" style="width: 20%">Naam
+          <th scope="col" sortable="recipeType" (sort)="onSort($event)" style="width: 20%">Type
             <img *ngIf="recipeService.sortColumn === 'recipeType' && recipeService.sortDirection === 'asc'" class="ml-1"
               src="assets/icons/sort-down.svg" alt="Sort ascending">
             <img *ngIf="recipeService.sortColumn === 'recipeType' && recipeService.sortDirection === 'desc'"
