@@ -1,37 +1,97 @@
-<div class="container-lg-desktop mx-5">
-  <h1>{{recipe.name}}</h1>
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <table class="table table-bordered table-striped">
-        <tbody>
-          <tr>
-            <td>Trefwoorden:</td>
-            <td>{{recipe.tagString}}</td>
-          </tr>
-          <tr>
-            <td>Voorbereidingstijd:</td>
-            <td>{{recipe.preparationTime}}</td>
-          </tr>
-          <tr>
-            <td>Bereidingstijd:</td>
-            <td>{{recipe.cookTime}}</td>
-          </tr>
-          <tr>
-            <td>Recept type:</td>
-            <td>{{recipe.recipeType}}</td>
-          </tr>
-          <tr>
-            <td>Aantal personen:</td>
-            <td>{{recipe.servings}}</td>
-          </tr>
-          <tr>
-            <td>Waardering:</td>
-            <td>{{recipe.rating}}</td>
-          </tr>
-
-        </tbody>
-      </table>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-warning yellow-card m-3">
+      <div class="card-body">
+        <h1>{{recipe.name}}</h1>
+      </div>
     </div>
-    <div class="col-md-6"><img src="assets/images/test_recipe.jpeg" alt="Test recept"> </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card border-warning yellow-card m-3">
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <td>Trefwoorden:</td>
+              <td>{{recipe.tagString}}</td>
+            </tr>
+            <tr>
+              <td>Voorbereidingstijd:</td>
+              <td>{{recipe.preparationTime}} minuten</td>
+            </tr>
+            <tr>
+              <td>Bereidingstijd:</td>
+              <td>{{recipe.cookTime}} minuten</td>
+            </tr>
+            <tr>
+              <td>Recept type:</td>
+              <td>{{recipe.recipeType}}</td>
+            </tr>
+            <tr>
+              <td>Aantal personen:</td>
+              <td>{{recipe.servings}}</td>
+            </tr>
+            <tr>
+              <td>Waardering:</td>
+              <td>{{recipe.rating}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card border-success m-3 green-card">
+      <div class="card-body">
+        <h5 class="card-title">Ingrediënten</h5>
+        <table class="table table-bordered table-striped table-sm">
+          <tbody>
+            <tr *ngFor="let ingredient of recipe.ingredients">
+              <td>{{ingredient.amount}}</td>
+              <td>{{ ingredient.amount >= 2 ? ingredient.measureUnit.pluralName : ingredient.measureUnit.name }}</td>
+              <td>{{ ingredient.amount >= 2 ? ingredient.ingredientName.pluralName : ingredient.ingredientName.name}}</td>
+              <td><input type="checkbox" [attr.checked]="ingredient.ingredientName.stock ? '' : null" disabled></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card border-light m-3">
+      <div class="card-body">
+        <div><img class="img-fluid" src="assets/images/test_recipe.jpeg" alt="Test recept"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card border-warning green-card m-3">
+      <div class="card-body">
+        <h5 class="card-title">Voorbereiding</h5>
+        <div class="card-text" style="white-space:pre-wrap;">{{recipe.preparations}}</div>
+      </div>
+    </div>
+
+    <div class="card border-success m-3 yellow-card">
+      <div class="card-body">
+        <h5 class="card-title">Aantekeningen</h5>
+        <div class="card-text" style="white-space:pre-wrap;">{{recipe.notes}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card border-warning green-card m-3">
+      <div class="card-body">
+        <h5 class="card-title">Bereiding</h5>
+        <div class="card-text" style="white-space:pre-wrap;">{{recipe.directions}}</div>
+      </div>
+    </div>
   </div>
 </div>
