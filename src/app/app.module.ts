@@ -25,6 +25,7 @@ import { DecimalPipe } from '@angular/common';
 import { RecipeListComponent } from './component/recipe/recipe-list/recipe-list.component';
 import { RecipeUpdateComponent } from './component/recipe/recipe-update/recipe-update.component';
 import { RecipeCreateComponent } from './component/recipe/recipe-create/recipe-create.component';
+import { RecipeDetailsComponent } from './component/recipe/recipe-details/recipe-details.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { RecipeCreateComponent } from './component/recipe/recipe-create/recipe-c
     NgbdSortableHeader,
     RecipeListComponent,
     RecipeUpdateComponent,
-    RecipeCreateComponent
+    RecipeCreateComponent,
+    RecipeDetailsComponent
     ],
   imports: [
     BrowserModule,

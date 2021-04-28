@@ -43,15 +43,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let recipe of recipeService.recipePage$ | async">
-          <td>{{recipe.name}}</td>
-          <td>{{recipe.recipeType}}</td>
-          <td>{{recipe.tagString}}</td>
-          <td>{{recipe.lastServed}}</td>
-          <td>{{recipe.timesServed}}</td>
-          <td><a routerLink="/recipe-update/{{recipe.id}}"><img src="assets/icons/pencil-square.svg"
-                alt="Update Recipe"></a></td>
-          <td><a (click)="deleteRecipe(recipe.id)"><img src="assets/icons/trash.svg" alt=""></a></td>
+        <tr *ngFor="let recipe of recipeService.recipePage$ | async" >
+          <td (click)="showDetails(recipe.id)">{{recipe.name}}</td>
+          <td (click)="showDetails(recipe.id)">{{recipe.recipeType}}</td>
+          <td (click)="showDetails(recipe.id)">{{recipe.tagString}}</td>
+          <td (click)="showDetails(recipe.id)">{{recipe.lastServed}}</td>
+          <td (click)="showDetails(recipe.id)">{{recipe.timesServed}}</td>
+          <td><a (click)="deleteRecipe(recipe.id)"><img src="assets/icons/trash.svg" alt="Delete recipe"></a></td>
+          <td><a (click)="updateRecipe(recipe.id)" ><img src="assets/icons/pencil-square.svg" alt="Update recipe"></a></td>
+          
         </tr>
       </tbody>
     </table>

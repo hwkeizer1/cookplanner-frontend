@@ -13,6 +13,7 @@ import { IngredientNameUpdateComponent } from './component/ingredient_name/ingre
 import { RecipeListComponent } from './component/recipe/recipe-list/recipe-list.component';
 import { RecipeCreateComponent } from './component/recipe/recipe-create/recipe-create.component';
 import { RecipeUpdateComponent } from './component/recipe/recipe-update/recipe-update.component';
+import { RecipeDetailsComponent } from './component/recipe/recipe-details/recipe-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'ingredientName-update/:id', component: IngredientNameUpdateComponent },
   { path: 'recipes', component: RecipeListComponent },
   { path: 'recipe-create', component: RecipeCreateComponent },
-  { path: 'recipe-update/:id', component: RecipeUpdateComponent }
+  { path: 'recipe-update/:id', component: RecipeUpdateComponent },
+  { path: 'recipe-details/:id', component: RecipeDetailsComponent }
 
 ];
 

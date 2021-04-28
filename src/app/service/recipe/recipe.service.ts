@@ -108,7 +108,6 @@ export class RecipeService {
     this.recipeApiService.getAvailableRecipeTypes().subscribe(
       data => {
         this._availableRecipeTypes = data;
-        console.log(this._availableRecipeTypes)
       }
     )
 
@@ -181,7 +180,7 @@ export class RecipeService {
   }
 
   load(id: string): any {
-    let recipe = this.dataStore.recipes.find(x => x.id.toString() === id)
+    let recipe = this._recipes.find(x => x.id.toString() === id)
     return recipe;
   }
 
@@ -228,7 +227,7 @@ export class RecipeService {
     this.recipeApiService.delete(id).subscribe(
       data => {
         this.dataStore.recipes.forEach((t, i) => {
-          if (t.id === id) {
+          if (t.id.toString() === id) {
             this.dataStore.recipes.splice(i, 1);
           }
         });

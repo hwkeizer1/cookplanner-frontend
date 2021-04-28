@@ -1,4 +1,5 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbdSortableHeader, SortEvent } from 'src/app/directive/sortable.directive';
 import { RecipeService } from 'src/app/service/recipe/recipe.service';
 
@@ -12,7 +13,9 @@ export class RecipeListComponent {
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public recipeService: RecipeService) {
+  constructor(
+    public recipeService: RecipeService,
+    private router: Router) {
     this.recipeService.loadAll();
     this.headers = new QueryList;
    }
@@ -29,8 +32,16 @@ export class RecipeListComponent {
     this.recipeService.sortDirection = direction;
   }
 
+  showDetails(id: string) {
+    this.router.navigate([`/recipe-details/${id}`])
+  }
+
   deleteRecipe(id: string) {
     this.recipeService.remove(id);
+  }
+
+  updateRecipe(id: string) {
+    this.router.navigate([`/recipe-update/${id}`]);
   }
 
 }
