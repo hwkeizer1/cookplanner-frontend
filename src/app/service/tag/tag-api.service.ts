@@ -32,4 +32,8 @@ export class TagApiService {
   delete(id: string) {
     return this.http.delete<Tag>(`${baseUrl}/${id}`);
   }
+
+  getAvailableTags() {
+    return this.http.get<string[]>(`${baseUrl}/tags`)
+  }
 }

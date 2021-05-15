@@ -100,6 +100,8 @@ export class TagService {
       this._tagPage$.next(result.tags);
       this._total$.next(result.total);
     })
+
+    this.loadAll();
   }
 
   get tagPage$() { return this._tagPage$.asObservable(); }
@@ -110,6 +112,7 @@ export class TagService {
   get searchTerm() { return this._state.searchTerm; }
   get sortColumn() { return this._state.sortColumn; }
   get sortDirection() { return this._state.sortDirection; }
+  get allAvailableTags() { return this._tags$.asObservable(); }
 
   set page(page: number) { this._set({ pageNumber: page }) }
   set pageSize(pageSize: number) { this._set({ pageSize }) }
