@@ -17,7 +17,7 @@ export class Recipe {
   lastServed?: Date;
   preparations?: string;
   directions?: string;
-  rating?: number;
+  rating?: number = 0;
   tagString?: string;
   isDeleting: boolean = false;
 }
