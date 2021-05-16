@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Recipe } from 'src/app/model/recipe.model';
 import { Tag } from 'src/app/model/tag.model';
 import { RecipeService } from 'src/app/service/recipe/recipe.service';
 import { TagService } from 'src/app/service/tag/tag.service';
@@ -15,12 +16,12 @@ interface TagItem {
   templateUrl: './recipe-create.component.html',
   styleUrls: ['./recipe-create.component.css']
 })
-export class RecipeCreateComponent implements OnInit {
+export class RecipeCreateComponent implements OnInit, OnDestroy {
   createForm!: FormGroup;
   loading = false;
   submitted = false;
-  tagList: TagItem[] = new Array;
-  subscription?: Subscription;
+  allTags: Tag[] = new Array;
+  allTagsSubscription?: Subscription;
 
   constructor(
     private router: Router,
@@ -30,10 +31,10 @@ export class RecipeCreateComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.tagService.allAvailableTags.subscribe(
+    this.allTagsSubscription = this.tagService.allAvailableTags.subscribe(
       data => {
-        this.tagList = [];
-        data.forEach(item => { this.tagList.push({value: item.name })});
+        this.allTags = [];
+        data.forEach(item => { this.allTags.push(item)});
       }
     )
 
@@ -46,6 +47,10 @@ export class RecipeCreateComponent implements OnInit {
       rating: ['', [Validators.min(1), Validators.max(10)]],
       tagList: this.formBuilder.array([])
     })
+  }
+
+  ngOnDestroy(): void {
+    this.allTagsSubscription?.unsubscribe();
   }
 
   onTagCheckboxChange(e: any) {
@@ -70,8 +75,15 @@ export class RecipeCreateComponent implements OnInit {
     if (this.createForm.invalid) {
       return
     }
-// TODO: submit the tags in the create method instead of the TagItems
-    this.recipeService.create(this.createForm.value);
+    let recipe = new Recipe();
+    Object.keys(this.createForm.value).forEach( key => {if (key in recipe) recipe[key] = this.createForm.value[key]} );
+    
+    this.createForm.value.tagList.forEach(tagName => {
+      let tag = this.allTags.find(item => item.name.toString() == tagName)
+      if (tag) recipe.tags.push(tag)
+    });
+
+    this.recipeService.create(recipe);
     this.router.navigate(['/recipes']);
   }
 

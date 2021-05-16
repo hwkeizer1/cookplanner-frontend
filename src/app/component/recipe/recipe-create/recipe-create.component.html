@@ -49,9 +49,9 @@
     <div class="form-row form-group">
       <label class="col-form-label col-2">Kenmerken:</label>
       <div class="col-9 pl-0">
-        <div *ngFor="let tag of tagList; let i=index">
+        <div *ngFor="let tag of allTags; let i=index">
             <div class="col-md-3 float-left pl-0">
-              <input class="mr-2" type="checkbox" [value]="tag.value" (change)="onTagCheckboxChange($event)" />{{tag.value}}
+              <input class="mr-2" type="checkbox" [value]="tag.name" (change)="onTagCheckboxChange($event)" />{{tag.name}}
             </div>
         </div>
       </div>

@@ -22,7 +22,6 @@ export class RecipeApiService {
   }
 
   create(params: any) {
-    console.log(params)
     return this.http.post<Recipe>(baseUrl, params);
   }
 
