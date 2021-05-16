@@ -8,5 +8,4 @@ export class Ingredient {
   amount!: number;
   measureUnit!: MeasureUnit;
   ingredientName!: IngredientName;
-  isDeleting: boolean = false;
 }

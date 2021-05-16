@@ -185,7 +185,6 @@ export class RecipeService {
   }
 
   create(recipe: Recipe) {
-    console.log(JSON.stringify(recipe))
     this.recipeApiService.create(recipe).subscribe(
       data => {
         this.dataStore.recipes.push(data);

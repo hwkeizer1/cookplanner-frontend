@@ -5,5 +5,4 @@ export class IngredientName {
     stock: boolean = false;
     shopType?: string;
     ingredientType?: string;
-    isDeleting: boolean = false;
 }

@@ -107,7 +107,6 @@ export class IngredientNameService {
     this.ingredientNameApiService.getAvailableIngredientTypes().subscribe(
       data => {
         this._availableIngredientTypes = data;
-        console.log(this._availableIngredientTypes)
       }
     )
 

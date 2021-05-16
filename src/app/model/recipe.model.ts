@@ -19,5 +19,4 @@ export class Recipe {
   directions?: string;
   rating?: number = 0;
   tagString?: string;
-  isDeleting: boolean = false;
 }
