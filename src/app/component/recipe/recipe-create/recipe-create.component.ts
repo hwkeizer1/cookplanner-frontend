@@ -45,7 +45,9 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       cookTime: ['', [Validators.min(0), Validators.required]],
       servings: ['', [Validators.min(0), Validators.required]],
       rating: ['', [Validators.min(1), Validators.max(10)]],
-      tagList: this.formBuilder.array([])
+      tagList: this.formBuilder.array([]),
+      preparations: [''],
+      directions: ['']
     })
   }
 
@@ -83,6 +85,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       if (tag) recipe.tags.push(tag)
     });
 
+    console.log(recipe)
     this.recipeService.create(recipe);
     this.router.navigate(['/recipes']);
   }
