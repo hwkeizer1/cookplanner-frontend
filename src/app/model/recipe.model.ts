@@ -6,7 +6,7 @@ export class Recipe {
   name: string = '';
   servingTips?: string;
   notes?: string;
-  ingredients?: Ingredient[];
+  ingredients: Ingredient[] = [];
   image?: string;
   recipeType: string = '';
   tags: Tag[] = new Array;

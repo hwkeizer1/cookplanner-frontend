@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'
 import { MeasureUnit } from 'src/app/model/measure_unit.model';
 
-const baseUrl = `${environment.backendUrl}measure-units`
+const baseUrl = `${environment.backendUrl}/measure-units`
 
 @Injectable({
   providedIn: 'root'

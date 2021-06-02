@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'
 import { IngredientName } from 'src/app/model/ingredient_name.model';
 
-const baseUrl = `${environment.backendUrl}ingredient-names`
+const baseUrl = `${environment.backendUrl}/ingredient-names`
 
 @Injectable({
   providedIn: 'root'

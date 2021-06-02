@@ -112,6 +112,7 @@ export class MeasureUnitService {
   get searchTerm() { return this._state.searchTerm; }
   get sortColumn() { return this._state.sortColumn; }
   get sortDirection() { return this._state.sortDirection; }
+  get allMeasureUnits() { return this._measureUnits$.asObservable(); }
 
   set page(page: number) { this._set({ pageNumber: page }) }
   set pageSize(pageSize: number) { this._set({ pageSize }) }

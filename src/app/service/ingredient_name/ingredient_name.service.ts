@@ -138,6 +138,7 @@ export class IngredientNameService {
   get sortDirection() { return this._state.sortDirection; }
   get availableIngredientTypes() { return this._availableIngredientTypes; }
   get availableShopTypes() { return this._availableShopTypes; }
+  get allIngredientNames() { return this._ingredientNames$.asObservable(); }
 
   set page(page: number) { this._set({ pageNumber: page }) }
   set pageSize(pageSize: number) { this._set({ pageSize }) }

@@ -1,0 +1,40 @@
+<div class="card border-success m-3 green-card">
+  <div class="card-body">
+    <h5 class="card-title">Ingrediënten</h5>
+
+    <div class="form-row form-group" [formGroup]="form">
+      <label class="col-form-label col-2">Hoeveelheid</label>
+      <input type="number" formControlName="amount" class="form-control col-2"
+        [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
+      <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+        <div *ngIf="f.amount.errors.required">Hoeveelheid moet worden ingevuld</div>
+      </div>
+    </div>
+    <div class="form-row form-group" [formGroup]="form">
+      <label class="col-form-label col-2">Maateenheid (enkelvoud)</label>
+      <select formControlName="measureUnit" class="custom-select" style="width:250px;"
+        [ngClass]="{ 'is-invalid': submitted && f.measureUnit.errors }">
+        <option *ngFor="let measureUnit of measureUnitService.allMeasureUnits | async" [ngValue]="measureUnit">
+          {{measureUnit.name}}
+        </option>
+      </select>
+      <div *ngIf="submitted && f.measureUnit.errors" class="invalid-feedback">
+        <div *ngIf="f.measureUnit.errors.required">Maateenheid moet worden ingevuld</div>
+      </div>
+    </div>
+
+    <div class="form-row form-group" [formGroup]="form">
+      <label class="col-form-label col-2">Ingredient (enkelvoud)</label>
+      <select formControlName="ingredientName" class="custom-select" style="width:250px;"
+        [ngClass]="{ 'is-invalid': submitted && f.ingredientName.errors }">
+        <option *ngFor="let ingredientName of ingredientNameService.allIngredientNames | async" [ngValue]="ingredientName">
+          {{ingredientName.name}}
+        </option>
+      </select>
+      <div *ngIf="submitted && f.ingredientName.errors" class="invalid-feedback">
+        <div *ngIf="f.ingredientName.errors.required">Ingredient moet worden ingevuld</div>
+      </div>
+    </div>
+
+  </div>
+</div>

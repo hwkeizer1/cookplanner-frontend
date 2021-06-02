@@ -26,6 +26,7 @@ import { RecipeListComponent } from './component/recipe/recipe-list/recipe-list.
 import { RecipeUpdateComponent } from './component/recipe/recipe-update/recipe-update.component';
 import { RecipeCreateComponent } from './component/recipe/recipe-create/recipe-create.component';
 import { RecipeDetailsComponent } from './component/recipe/recipe-details/recipe-details.component';
+import { IngredientFormComponent } from './subforms/ingredient-form/ingredient-form.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { RecipeDetailsComponent } from './component/recipe/recipe-details/recipe
     RecipeListComponent,
     RecipeUpdateComponent,
     RecipeCreateComponent,
-    RecipeDetailsComponent
+    RecipeDetailsComponent,
+    IngredientFormComponent
     ],
   imports: [
     BrowserModule,
