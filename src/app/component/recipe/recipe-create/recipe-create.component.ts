@@ -2,14 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Ingredient } from 'src/app/model/ingredient.model';
 import { Recipe } from 'src/app/model/recipe.model';
 import { Tag } from 'src/app/model/tag.model';
+import { IngredientNameService } from 'src/app/service/ingredient_name/ingredient_name.service';
+import { MeasureUnitService } from 'src/app/service/measure_unit/measure_unit.service';
 import { RecipeService } from 'src/app/service/recipe/recipe.service';
 import { TagService } from 'src/app/service/tag/tag.service';
-
-interface TagItem {
-  value: string;
-}
 
 @Component({
   selector: 'app-recipe-create',
@@ -25,9 +24,13 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     public recipeService: RecipeService,
-    public tagService: TagService) { 
+    public tagService: TagService,
+    public measureUnitService: MeasureUnitService,
+    public ingredientNameService: IngredientNameService) {
+      this.measureUnitService.loadAll();
+      this.ingredientNameService.loadAll();
     }
 
   ngOnInit(): void {
@@ -38,15 +41,15 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       }
     )
 
-    this.createForm = this.formBuilder.group({
+    this.createForm = this.fb.group({
       name: ['', Validators.required],
       recipeType: ['', Validators.required],
       preparationTime: ['', Validators.min(0)],
       cookTime: ['', [Validators.min(0), Validators.required]],
       servings: ['', [Validators.min(0), Validators.required]],
       rating: ['', [Validators.min(1), Validators.max(10)]],
-      ingredients: [],
-      tagList: this.formBuilder.array([]),
+      ingredients: this.fb.array([]),
+      tagList: this.fb.array([]),
       preparations: [''],
       directions: ['']
     })
@@ -72,6 +75,19 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
     }
   }
 
+  addIngredient() {
+    const ingredientForm = this.fb.group({
+      amount: ['', Validators.required],
+      measureUnit: [''],
+      ingredientName: ['', Validators.required]
+    });
+    this.ingredients.push(ingredientForm);
+  }
+
+  removeIngredient(index: number) {
+    this.ingredients.removeAt(index);
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -91,5 +107,6 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
   }
 
   get f() { return this.createForm.controls; }
+  get ingredients() { return this.createForm.controls["ingredients"] as FormArray; }
 
 }

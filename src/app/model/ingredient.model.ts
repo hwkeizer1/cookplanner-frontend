@@ -4,7 +4,7 @@ import { Recipe } from "./recipe.model";
 
 export class Ingredient {
   id!: string;
-  recipe!: Recipe;
+  // recipe!: Recipe; Check if this is obsolete!!!
   amount!: number;
   measureUnit!: MeasureUnit;
   ingredientName!: IngredientName;
