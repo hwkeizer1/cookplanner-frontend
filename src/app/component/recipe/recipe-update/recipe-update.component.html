@@ -1,1 +1,122 @@
-<p>recipe-update works!</p>
+<div class="container m-5">
+  <h1>Recept wijzigen</h1>
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Naam:</label>
+      <input type="text" formControlName="name" class="form-control col-10"
+        [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">Recept naam moet worden ingevuld</div>
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Recipe type:</label>
+      <select formControlName="recipeType" class="custom-select" style="width:250px;"
+        [ngClass]="{ 'is-invalid': submitted && f.recipeType.errors }">
+        <option *ngFor="let recipeType of recipeService.availableRecipeTypes" [ngValue]="recipeType">{{recipeType}}
+        </option>
+      </select>
+      <div *ngIf="submitted && f.recipeType.errors" class="invalid-feedback">
+        <div *ngIf="f.recipeType.errors.required">Recept type moet worden ingevuld</div>
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Voorbereidingstijd:</label>
+      <input type="text" formControlName="preparationTime" class="form-control col-2"
+        [ngClass]="{ 'is-invalid': submitted && f.preparationTime.errors }" />
+      <div *ngIf="submitted && f.preparationTime.errors" class="invalid-feedback">
+        <div *ngIf="f.preparationTime.errors.min">Voorbereidingstijd kan niet negatief zijn</div>
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Bereidingstijd:</label>
+      <input type="text" formControlName="cookTime" class="form-control col-2"
+        [ngClass]="{ 'is-invalid': submitted && f.cookTime.errors }" />
+      <div *ngIf="submitted && f.cookTime.errors" class="invalid-feedback">
+        <div *ngIf="f.cookTime.errors.min">Bereidingstijd kan niet negatief zijn</div>
+        <div *ngIf="f.cookTime.errors.required">Bereidingstijd moet worden ingevuld</div>
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Aantal personen:</label>
+      <input type="text" formControlName="servings" class="form-control col-2"
+        [ngClass]="{ 'is-invalid': submitted && f.servings.errors }" />
+      <div *ngIf="submitted && f.servings.errors" class="invalid-feedback">
+        <div *ngIf="f.servings.errors.min">Aantal personen kan niet negatief zijn</div>
+        <div *ngIf="f.servings.errors.required">Aantal personen moet worden ingevuld</div>
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Kenmerken:</label>
+      <div class="col-9 pl-0">
+        <div *ngFor="let tag of allTags; let i=index">
+          <div class="col-md-3 float-left pl-0">
+            <input class="mr-2" type="checkbox" [value]="tag.name" (change)="onTagCheckboxChange($event)" />{{tag.name}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Waardering:</label>
+      <input type="text" formControlName="rating" class="form-control col-2"
+        [ngClass]="{ 'is-invalid': submitted && f.rating.errors }" />
+      <div *ngIf="submitted && f.rating.errors" class="invalid-feedback">
+        <div *ngIf="f.rating.errors.min">Minimale waardering is 1</div>
+        <div *ngIf="f.rating.errors.max">Maximale waardering is 10</div>
+      </div>
+    </div>
+
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Voorbereiding:</label>
+      <textarea type="text" formControlName="preparations" class="form-control col-10" rows="6"></textarea>
+    </div>
+    <div class="form-row form-group">
+      <label class="col-form-label col-2">Bereiding:</label>
+      <textarea type="text" formControlName="directions" class="form-control col-10" rows="10"></textarea>
+    </div>
+
+    <div class="form-row" formArrayName="ingredients">
+      <table>
+        <tr>
+          <th>Hoeveelheid</th>
+          <th>Maateenheid</th>
+          <th>Ingrediënt</th>
+        </tr>
+        <ng-container *ngFor="let ingredient of ingredients.controls; let i=index">
+          <ng-container [formGroupName]="i">
+            <tr>
+              <td><input type="number" formControlName="amount"/></td>
+              <td>
+                <select [compareWith]="compareMeasureUnits" formControlName="measureUnit" class="custom-select">
+                  <option *ngFor="let measureUnit of measureUnitService.allMeasureUnits | async" [ngValue]="measureUnit">
+                    {{measureUnit.name}}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <select [compareWith]="compareIngredientNames" formControlName="ingredientName" class="custom-select">
+                  <option *ngFor="let ingredientName of ingredientNameService.allIngredientNames | async"
+                    [ngValue]="ingredientName">
+                    {{ingredientName.name}}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <button (click)="removeIngredient(i)" class="btn btn-warning">Verwijderen</button>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </table>
+      <button class="btn btn-success" (click)="addIngredient()">Ingrediënt toevoegen</button>
+    </div>
+
+    <div class="form-group my-5">
+      <button [disabled]="loading" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Opslaan
+      </button>
+      <a routerLink="/recipes" class="btn btn-link">Annuleren</a>
+    </div>
+  </form>
+</div>

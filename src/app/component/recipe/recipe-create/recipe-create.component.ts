@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Ingredient } from 'src/app/model/ingredient.model';
 import { Recipe } from 'src/app/model/recipe.model';
 import { Tag } from 'src/app/model/tag.model';
 import { IngredientNameService } from 'src/app/service/ingredient_name/ingredient_name.service';
@@ -17,8 +16,8 @@ import { TagService } from 'src/app/service/tag/tag.service';
 })
 export class RecipeCreateComponent implements OnInit, OnDestroy {
   createForm!: FormGroup;
-  loading = false;
   submitted = false;
+  loading = false;
   allTags: Tag[] = new Array;
   allTagsSubscription?: Subscription;
 
